@@ -21,7 +21,7 @@ jobs:
       - name: Deploy to VPS
         run: |
           ssh -o StrictHostKeyChecking=no mujahidramdhani@34.124.147.75 << 'EOF'
-            cd /var/www/my-app
+            cd /home/mujahidramdhani/apps/express-prisma
             git pull origin main
             docker-compose down
             docker-compose up -d --build
