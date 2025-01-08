@@ -4,20 +4,20 @@ FROM node:18
 # Set working directory
 WORKDIR /app
 
-# Copy package.json dan package-lock.json
+# Copy file package.json dan package-lock.json terlebih dahulu
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
+# Copy semua file aplikasi, termasuk direktori prisma
+COPY . .
+
 # Generate Prisma Client
 RUN npx prisma generate --schema=prisma/schema.prisma
 
-# Copy semua file aplikasi
-COPY . .
-
-# Expose port aplikasi (ubah sesuai dengan konfigurasi aplikasi Anda)
+# Expose port aplikasi
 EXPOSE 3003
 
-# Jalankan aplikasi dengan file app.js sebagai entry point
+# Jalankan aplikasi
 CMD ["node", "src/app.js"]
