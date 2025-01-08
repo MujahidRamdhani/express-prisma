@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Generate Prisma Client
-RUN npx prisma generate
+RUN npx prisma generate --schema=prisma/schema.prisma
 
 # Copy semua file aplikasi
 COPY . .
