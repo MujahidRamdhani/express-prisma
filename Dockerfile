@@ -1,12 +1,23 @@
-FROM node:16
+# Gunakan Node.js versi 18 LTS
+FROM node:18
 
+# Set working directory
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Copy package.json dan package-lock.json
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-COPY . .
-
+# Generate Prisma Client
 RUN npx prisma generate
 
+# Copy semua file aplikasi
+COPY . .
+
+# Expose port aplikasi (ubah sesuai dengan konfigurasi aplikasi Anda)
+EXPOSE 3003
+
+# Jalankan aplikasi dengan file app.js sebagai entry point
 CMD ["node", "src/app.js"]

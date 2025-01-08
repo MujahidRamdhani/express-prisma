@@ -1,13 +1,16 @@
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
-const routes = require('./routes');
-
 const app = express();
-const prisma = new PrismaClient();
+require('dotenv').config();
 
+// Middleware
 app.use(express.json());
+
+// Routes
+const routes = require('./routes');
 app.use('/api', routes);
 
-app.get('/', (req, res) => res.send('Express + Prisma App is running!'));
-
-module.exports = { app, prisma };
+// Start server
+const PORT = process.env.PORT || 3003;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
