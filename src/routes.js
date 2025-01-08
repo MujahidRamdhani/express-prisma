@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const prisma = require('./prismaClient');  // Import the prisma client
+const {prisma, testConnection} = require('./prismaClient');  // Import the prisma client
 
 // Get all users
 router.get('/users', async (req, res) => {
@@ -12,6 +12,17 @@ router.get('/users', async (req, res) => {
     res.status(500).json({ error: 'Database connection error' });
   }
 });
+
+router.get('/connect', async (req, res) => {
+  try {
+    const result = await  testConnection(); // Fetch all users from MySQL
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Database connection error' });
+  }
+});
+
 
 // Create a user
 router.post('/users', async (req, res) => {
